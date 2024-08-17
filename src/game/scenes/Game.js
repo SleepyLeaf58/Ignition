@@ -32,7 +32,8 @@ export class Game extends Scene
         // player
         // sprite sheet will wait 
         let avatar = 'player';
-        player = this.physics.add.sprite(450, 450, avatar);
+        player = this.physics.add.sprite(200, 200, avatar);
+        player.setScale(0.5).refreshBody();
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
         player.body.setGravityY(300);
