@@ -31,7 +31,7 @@ export class Game extends Scene
         
         // player
         // sprite sheet will wait 
-        let avatar = 'star';
+        let avatar = 'player';
         player = this.physics.add.sprite(450, 450, avatar);
         player.setBounce(0.2);
         player.setCollideWorldBounds(true);
