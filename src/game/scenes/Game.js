@@ -1,9 +1,11 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
+import {clickCount} from './UpgradeScreen';
 
 var platforms;
 var player;
 var cursors;
+var jumpHeight = 310;
 
 
 export class Game extends Scene
@@ -32,6 +34,8 @@ export class Game extends Scene
         // player
         // sprite sheet will wait 
         let avatar = 'player';
+        
+      
         player = this.physics.add.sprite(200, 200, avatar);
         player.setScale(0.5).refreshBody();
         player.setBounce(0.2);
@@ -46,7 +50,7 @@ export class Game extends Scene
         EventBus.emit('current-scene-ready', this);
     }
     update () {
-        if (cursors.left.isDown)
+            if (cursors.left.isDown)
             {
                 player.setVelocityX(-160);
             
@@ -68,8 +72,10 @@ export class Game extends Scene
             
             if (cursors.up.isDown && player.body.touching.down)
             {
-                player.setVelocityY(-330);
+                player.setVelocityY(-jumpHeight);
             }
+
+            jumpHeight = jumpHeight+clickCount;
     }
 
     changeScene ()
