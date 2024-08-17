@@ -30,6 +30,7 @@
         "world_tileset.tsx"
     ],
     "project": "Project.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "world_tileset.tsx",
         "Testing.tmx"

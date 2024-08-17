@@ -47,6 +47,6 @@ export class UpgradeScreen extends Scene
 
     changeScene ()
     {
-        this.scene.start('MainMenu');
+        this.scene.start('Math');
     }
 }

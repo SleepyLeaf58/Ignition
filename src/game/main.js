@@ -3,6 +3,7 @@ import { Game } from './scenes/Game';
 import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import{UpgradeScreen} from'./scenes/UpgradeScreen';
+import { Math } from "./scenes/Math"
 import Phaser from 'phaser';
 import { Preloader } from './scenes/Preloader';
 
@@ -14,6 +15,9 @@ const config = {
     height: 768,
     parent: 'game-container',
     backgroundColor: '#028af8',
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -27,8 +31,10 @@ const config = {
         MainMenu,
         Game,
         GameOver,
-        UpgradeScreen
+        UpgradeScreen,
+        Math
     ]
+    
 };
 
 const StartGame = (parent) => {

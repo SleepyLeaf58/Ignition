@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import Phaser from 'phaser';
 import { PhaserGame } from './game/PhaserGame';
 
+
+
 function App ()
 {
     // The sprite can only be moved in the MainMenu Scene
@@ -85,6 +87,7 @@ function App ()
                 </div>
                 <div>
                     <button className="button" onClick={addSprite}>Add New Sprite</button>
+                    
                 </div>
             </div>
         </div>
