@@ -15,8 +15,13 @@ export class Game extends Scene
         super('Game');
     }
 
+    preload() {
+        this.load.image('tiles', 'assets/world_tileset.png');
+        this.load.tilemapTiledJSON('tilemap', 'assets/Testing.json');
+    }
+
     create ()
-    {
+    {   
         // initializations
         
         this.cameras.main.setBackgroundColor(0x00ff00);
@@ -82,9 +87,4 @@ export class Game extends Scene
     {
         this.scene.start('GameOver');
     }
-    
-
-    
-        
-            
 }
