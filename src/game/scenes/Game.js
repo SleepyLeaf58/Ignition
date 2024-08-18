@@ -1,7 +1,7 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
 import {clickCount} from './UpgradeScreen';
-
+import {clickCount2} from './UpgradeScreen';
 // what is this dasdasdsaasd
 // pls move to inside the class
 // why
@@ -57,10 +57,10 @@ export class Game extends Scene
         //player
         // sprite sheet will wait 
         this.avatar = 'player';
-        this.jumpHeight = 310;
-        this.maxStamina = 100;
+        this.jumpHeight = 310+clickCount;
+        this.maxStamina = 100+10*clickCount2;
         this.stamina = this.maxStamina;
-        this.staminaInc = 1;
+        this.staminaInc = 1+0.03*clickCount2;
         this.staminaDec = 1;
         this.rest=false;
         
@@ -71,6 +71,7 @@ export class Game extends Scene
         this.player.setCollideWorldBounds(true);
         this.player.body.setGravityY(300);
         this.physics.add.collider(this.player, this.platforms);
+        
 
         this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa, alpha: 0.6 }, fillStyle: { color: 0x00aa00, alpha: 0.7 } });
 
@@ -124,10 +125,10 @@ export class Game extends Scene
         }).setDepth(100).setOrigin(0.5);
 
 
-        this.jumpHeight = this.jumpHeight+clickCount;
+        
 
         // drawing stamina bar
-        this.rect1 = new Phaser.Geom.Rectangle(this.player.x-24, this.player.y-50, this.stamina/2, 10);
+        this.rect1 = new Phaser.Geom.Rectangle(this.player.x-24, this.player.y-50, (this.stamina*50)/this.maxStamina, 10);
         this.graphics.clear();
         this.graphics.strokeRectShape(this.rect1);
         this.graphics.fillRectShape(this.rect1);
