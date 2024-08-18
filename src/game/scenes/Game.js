@@ -24,12 +24,39 @@ export class Game extends Scene
         
         this.load.image('Tileset', 'assets/tilemap/world_tileset.png');
         this.load.tilemapTiledJSON('map', 'assets/tilemap/TileMap.json');
-        
+
+        // Animations
+        // Texture
+        this.load.image('knight', 'assets/sprites/hero.png');
+        this.load.atlas('a-knight', 'assets/sprites/knight.png', 'assets/sprites/knight.json');
     }
 
     create () {   
         // initializations
-        
+        // Animations
+        this.anims.create({
+            key: 'idle',
+            frameRate: 12,
+            frames: this.anims.generateFrameNames('a-knight', {
+                prefix: "idle",
+                suffix: ".png",
+                start: 1,
+                end: 4,
+            }),
+            repeat:-1,
+        })
+        this.anims.create({
+            key: 'run',
+            frameRate: 12,
+            frames: this.anims.generateFrameNames('a-knight', {
+                prefix: "run",
+                suffix: ".png",
+                start: 1,
+                end: 16,
+            }),
+            repeat:-1,
+        })
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.setBounds(0, 0, 64*30, 64*20);
         this.physics.world.setBounds(0, 0, 64*30, 64*20); // Make bounds responsive
@@ -55,7 +82,7 @@ export class Game extends Scene
         
         //player
         // sprite sheet will wait 
-        this.avatar = 'player';
+
         this.jumpHeight = 310+2*clickCount;
         this.maxStamina = 100+10*clickCount2;
         this.stamina = this.maxStamina;
@@ -64,7 +91,7 @@ export class Game extends Scene
         this.rest=false;
         
       
-        this.player = this.physics.add.sprite(200, 200,this.avatar);
+        this.player = this.physics.add.sprite(200, 200, 'a-knight');
         this.player.setScale(0.5).refreshBody();
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
@@ -84,18 +111,21 @@ export class Game extends Scene
         // this.cameras.main.setBounds(0, 0, bg.displayWidth, bg.displayHeight);
         this.cameras.main.startFollow(this.player);
 
+
         EventBus.emit('current-scene-ready', this);
     }
     
     update () {
+
         if (!this.rest && this.cursors.left.isDown)
-        {
+        {   
+            this.player.setFlipX(true);
             this.player.setVelocityX(-160);
             this.stamina-=this.staminaDec;
-            
         }
         else if (!this.rest && this.cursors.right.isDown)
         {
+            this.player.setFlipX(false);
             this.player.setVelocityX(160);
             this.stamina -= this.staminaDec;
         } 
@@ -140,10 +170,6 @@ export class Game extends Scene
         this.graphics.clear();
         this.graphics.strokeRectShape(this.rect1);
         this.graphics.fillRectShape(this.rect1);
-       
-        
-      
-        
     }
 
     forceRest() {

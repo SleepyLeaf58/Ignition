@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Tileset.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -11,14 +11,14 @@
     "fileStates": {
         "": {
             "scaleInDock": 1.5,
-            "scaleInEditor": 1
+            "scaleInEditor": 0.75
         },
         "Tileset.tmx": {
             "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 937,
-                "y": 678
+                "y": 677
             }
         },
         "Tileset.tmx#Tileset": {
@@ -32,6 +32,7 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
+        "Tileset.tmx"
     ],
     "project": "Project.tiled-project",
     "property.type": "bool",
