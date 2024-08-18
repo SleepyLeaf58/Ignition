@@ -12,8 +12,10 @@ export class Menu extends Scene
     create ()
     {
         //this.cameras.main.setBackgroundColor(0xff0000);
-        this.gameButton = new TextButton(this, 500, 200, 'GAME', { fill: '#0f0'}, () => this.goToGame());
-        this.upgrade = new TextButton(this, 500, 400, 'UPGRADE', { fill: '#0f0'}, () => this.goToUpgrade());
+        this.gameButton = new TextButton(this, 450, 250, 'GAME', { fill: '#0f0', fontSize:64}, () => this.goToGame());
+        this.upgrade = new TextButton(this, 400, 500, 'UPGRADE', { fill: '#0f0', fontSize: 64}, () => this.goToUpgrade());
+        
+        
         this.add.existing(this.gameButton);
         this.add.existing(this.upgrade);
         EventBus.emit('current-scene-ready', this);
