@@ -1,5 +1,7 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
+import {TextButton} from '../TextButton';
+
 
 export class MainMenu extends Scene
 {
@@ -16,11 +18,20 @@ export class MainMenu extends Scene
 
         this.logo = this.add.image(512, 300, 'logo').setDepth(100);
 
+        this.gameButton = new TextButton(this, 370, 460, 'START GAME',  {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#0f0',
+            stroke: '#000000', strokeThickness: 8
+        }, () => this.goToGame());
+        this.add.existing(this.gameButton);
+
+        /*
+
         this.add.text(512, 460, 'Main Menu', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setDepth(100).setOrigin(0.5);
+        */
         
         EventBus.emit('current-scene-ready', this);
     }
@@ -68,5 +79,8 @@ export class MainMenu extends Scene
                 }
             });
         }
+    }
+    goToGame() {
+        this.scene.start('Game');
     }
 }

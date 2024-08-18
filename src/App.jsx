@@ -3,50 +3,52 @@ import { useRef, useState } from 'react';
 import Phaser from 'phaser';
 import { PhaserGame } from './game/PhaserGame';
 
+let limit = [0];
+export{limit};
 
 
 function App ()
 {
     const mathQuestions = [
         {
-          question: "Solve for x: 2x^2 - 4x - 6 = 0",
-          answer: "-1,3"
+          question: "What is the sum of the roots of (2x+1)(x-3)+(2x+3)(x-3) = 0",
+          answer: "2"
         },
         {
-          question: "Find the value of x in the equation: 3^(x+1) = 81",
+          question: "Joe went to the bank and withdrew $80. The teller gave her this amount using $20 bills, $50 bills and $100 bills with at least one of each denomination. How many different collections of bills could Joe have received?",
+          answer: "21"
+        },
+        {
+          question: "How many ways can 5 books be arranged on a shelf if book 1 and 2 must be beside another",
+          answer: "48"
+        },
+        {
+          question: "Find the value of 101!/99!",
+          answer: "10100"
+        },
+        {
+          question: "Find the sum of the odd integers between 10 and 50.",
+          answer: "600"
+        },
+        {
+          question: "If x+y=4 and xy=2, find x^6+y^6",
+          answer:  "1584" 
+        },
+        {
+          question: "An equilateral triangle and a regular hexagon have equal perimeters. If the area of the triangle is 2, find the area of the hexagon.",
           answer: "3"
         },
         {
-          question: "What is the value of sin(45°) + cos(45°)?",
-          answer: "sqrt(2)"
+          question: "Find the GCF of 36,27, and 45.",
+          answer: "9"
         },
         {
-          question: "Calculate the area of a triangle with base 10 cm and height 7 cm.",
-          answer: "35"
+          question: "How many multiples of 7 are there between 100 and 200?",
+          answer: "14"
         },
         {
-          question: "Find the x-intercepts of the quadratic function f(x) = x^2 - 5x + 6.",
-          answer: "2, 3"
-        },
-        {
-          question: "Solve the system of equations: 2x + 3y = 12 and x - y = 1.",
-          answer:  "x: 3, y: 1" 
-        },
-        {
-          question: "What is the derivative of f(x) = 3x^3 - 5x^2 + 2x - 7?",
-          answer: "9x^2 - 10x + 2"
-        },
-        {
-          question: "Find the hypotenuse of a right triangle with legs of lengths 6 and 8.",
-          answer: "10"
-        },
-        {
-          question: "If the function f(x) = 2x^2 - 4x + 1, find the vertex of the parabola.",
-          answer: "x: 1, y: -1"
-        },
-        {
-          question: "What is the volume of a cylinder with radius 3 cm and height 7 cm?",
-          answer: "197.92" // Volume = π * r^2 * h
+          question: "A singles tournament had six players. Each player played every other player only once, with no ties. If Helen won 4 games, Ines won 3 games, Janet won 2 games, Kendra won 2 games and Lara won 2 games, how many games did Monica win?",
+          answer: "2"
         }
       ];
     // The sprite can only be moved in the MainMenu Scene
@@ -119,7 +121,8 @@ function App ()
         let q = mathQuestions[randomIndex].question;
         let answer = prompt(q)
         if (answer == mathQuestions[randomIndex].answer) {
-            alert('you got it correct!, here\'s your reward')
+            alert('you got it correct!, You get an upgrade token!')
+            limit[0]=limit[0]+1;
         }
     }
 
@@ -141,7 +144,7 @@ function App ()
                     
                 </div>
                 <div>
-                    <button className="button" onClick={handleMath}>Refill Something</button>
+                    <button className="button" onClick={handleMath}>Get Upgrade Token</button>
                 </div>
             </div>
         </div>

@@ -81,12 +81,11 @@ export class Game extends Scene
         // this.platforms.create(750, 220,this.plat);
         
         //player
-        // sprite sheet will wait 
 
-        this.jumpHeight = 310+2*clickCount;
-        this.maxStamina = 100+10*clickCount2;
+        this.jumpHeight = 310+7*clickCount;
+        this.maxStamina = 100+18*clickCount2;
         this.stamina = this.maxStamina;
-        this.staminaInc = 1+0.03*clickCount2;
+        this.staminaInc = 1+0.1*clickCount2;
         this.staminaDec = 1;
         this.rest=false;
         
@@ -102,11 +101,6 @@ export class Game extends Scene
 
         // make menu relative to player!!!
         this.menuButton = new TextButton(this, 912, 41, 'MENU', {fill: '#0f0',  fontSize: 20,stroke: '#000000', strokeThickness: 8}, () => this.goToMenu());
-       
-
-        
-
-     
         this.wood=this.add.image(940, 20, 'wood').setScale(0.3);
         this.add.existing(this.menuButton);
         this.wood.setScrollFactor(0);

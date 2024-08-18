@@ -1,12 +1,14 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
 import {TextButton} from '../TextButton';
+import{limit} from '../../App';
 
 let clickCount = 0;
 export{clickCount};
 let clickCount2 = 0;
 export{clickCount2};
-let limit = 10;
+
+
 
 
 export class UpgradeScreen extends Scene
@@ -19,6 +21,7 @@ export class UpgradeScreen extends Scene
     create ()
     {
         
+        this.indivLimit=5;
         this.cameras.main.setBackgroundColor(0xff0000);
 
         this.add.image(512, 384, 'background').setAlpha(0.5);
@@ -52,24 +55,32 @@ export class UpgradeScreen extends Scene
     }
     updateClickCountText() {
         
-        if (limit>0) {
+        if (limit[0]>0 && clickCount < this.indivLimit) {
             clickCount++;
-            limit--;
+            limit[0]--;
         }
        
     }
     updateClickCountText2() {
-        if (limit >0) {
+        if (limit[0] >0 && clickCount2 < this.indivLimit) {
             clickCount2++;
-            limit--;
+            limit[0]--;
         }
     }
       
 
     update() {
-        this.clickCountText.setText(`Button has been clicked ${clickCount} times.`);
-        this.clickCountText2.setText(`Button has been clicked ${clickCount2} times.`);
-        this.limitCountText.setText(`There are ${limit} tokens left.`);
+        if (clickCount < this.indivLimit) {
+            this.clickCountText.setText(`Jump Power is at level ${clickCount}.`);
+        } else {
+            this.clickCountText.setText('Jump Power Has Been MAXED!');
+        }
+        if (clickCount2 < this.indivLimit) {
+            this.clickCountText2.setText(`Stamina is at level ${clickCount2}.`);
+        } else {
+            this.clickCountText2.setText('Stamina Has Been MAXED!');
+        }
+        this.limitCountText.setText(`There are ${limit[0]} tokens left.`);
 
     }
 
