@@ -82,8 +82,8 @@ export class Game extends Scene
         
         //player
 
-        this.jumpHeight = 310+7*clickCount;
-        this.maxStamina = 100+18*clickCount2;
+        this.jumpHeight = 310+30*clickCount;
+        this.maxStamina = 100+30*clickCount2;
         this.stamina = this.maxStamina;
         this.staminaInc = 1+0.1*clickCount2;
         this.staminaDec = 1;
