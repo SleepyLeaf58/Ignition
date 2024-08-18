@@ -39,9 +39,9 @@ export class UpgradeScreen extends Scene
         this.add.existing(this.clickButton2);
         this.updateClickCountText2();
 
-        this.menuButton = new TextButton(this, 900, 100, 'MENU', {fill: '#0f0',  fontSize: 32}, () => this.goToMenu());
+        this.menuButton = new TextButton(this, 912, 41, 'MENU', {fill: '#0f0',  fontSize: 20,stroke: '#000000', strokeThickness: 8}, () => this.goToMenu());
        
-        this.add.image(935, 115, 'wood').setScale(0.3);
+        this.add.image(940, 20, 'wood').setScale(0.3);
         this.add.existing(this.menuButton);
         
     

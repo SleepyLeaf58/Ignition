@@ -101,10 +101,18 @@ export class Game extends Scene
 
 
         // make menu relative to player!!!
-        this.menuButton = new TextButton(this, 900, 100, 'MENU', {fill: '#0f0',  fontSize: 32}, () => this.goToMenu());
+        this.menuButton = new TextButton(this, 912, 41, 'MENU', {fill: '#0f0',  fontSize: 20,stroke: '#000000', strokeThickness: 8}, () => this.goToMenu());
        
-        this.add.image(935, 115, 'wood').setScale(0.3);
+
+        
+
+     
+        this.wood=this.add.image(940, 20, 'wood').setScale(0.3);
         this.add.existing(this.menuButton);
+        this.wood.setScrollFactor(0);
+        this.menuButton.setScrollFactor(0);
+        
+        
        
 
         // Camera
@@ -173,6 +181,8 @@ export class Game extends Scene
         this.graphics.clear();
         this.graphics.strokeRectShape(this.rect1);
         this.graphics.fillRectShape(this.rect1);
+
+    
     }
 
     forceRest() {
