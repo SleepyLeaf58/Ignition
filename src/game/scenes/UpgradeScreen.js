@@ -6,6 +6,7 @@ let clickCount = 0;
 export{clickCount};
 let clickCount2 = 0;
 export{clickCount2};
+let limit = 10;
 
 
 export class UpgradeScreen extends Scene
@@ -32,15 +33,14 @@ export class UpgradeScreen extends Scene
         this.clickCountText = this.add.text(100, 200, '');
         this.clickButton = new TextButton(this, 500, 200, 'Jump', { fill: '#0f0'}, () => this.updateClickCountText());
         this.add.existing(this.clickButton);
-        this.updateClickCountText();
 
         this.clickCountText2 = this.add.text(100, 300, '');
         this.clickButton2 = new TextButton(this, 500, 300, 'Stamina', { fill: '#0f0'}, () => this.updateClickCountText2());
         this.add.existing(this.clickButton2);
-        this.updateClickCountText2();
+
+        this.limitCountText = this.add.text(500, 500, '');
 
         this.menuButton = new TextButton(this, 912, 41, 'MENU', {fill: '#0f0',  fontSize: 20,stroke: '#000000', strokeThickness: 8}, () => this.goToMenu());
-       
         this.add.image(940, 20, 'wood').setScale(0.3);
         this.add.existing(this.menuButton);
         
@@ -51,12 +51,26 @@ export class UpgradeScreen extends Scene
 
     }
     updateClickCountText() {
-        this.clickCountText.setText(`Button has been clicked ${clickCount} times.`);
-        clickCount++;
+        
+        if (limit>0) {
+            clickCount++;
+            limit--;
+        }
+       
     }
     updateClickCountText2() {
+        if (limit >0) {
+            clickCount2++;
+            limit--;
+        }
+    }
+      
+
+    update() {
+        this.clickCountText.setText(`Button has been clicked ${clickCount} times.`);
         this.clickCountText2.setText(`Button has been clicked ${clickCount2} times.`);
-        clickCount2++;
+        this.limitCountText.setText(`There are ${limit} tokens left.`);
+
     }
 
     goToMenu() {
