@@ -1,7 +1,7 @@
 import { EventBus } from '../EventBus';
 import { Scene } from 'phaser';
 import {clickCount} from './UpgradeScreen';
-
+import {clickCount2} from './UpgradeScreen';
 // what is this dasdasdsaasd
 // pls move to inside the class
 // why
@@ -44,20 +44,21 @@ export class Game extends Scene
         const camera = this.cameras.main;
         groundLayer.setCollisionByProperty({collide: true});
         
-        // this.plat = 'ground';
-        // this.platforms = this.physics.add.staticGroup();
-        // this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
-        // this.platforms.create(600, 400, this.plat);
-        // this.platforms.create(50, 250,this.plat);
-        // this.platforms.create(750, 220,this.plat);
+        
+        this.plat = 'ground';
+        this.platforms = this.physics.add.staticGroup();
+        this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
+        this.platforms.create(600, 400, this.plat);
+        this.platforms.create(50, 250,this.plat);
+        this.platforms.create(750, 220,this.plat);
         
         //player
         // sprite sheet will wait 
         this.avatar = 'player';
-        this.jumpHeight = 310;
-        this.maxStamina = 100;
+        this.jumpHeight = 310+clickCount;
+        this.maxStamina = 100+10*clickCount2;
         this.stamina = this.maxStamina;
-        this.staminaInc = 1;
+        this.staminaInc = 1+0.03*clickCount2;
         this.staminaDec = 1;
         this.rest=false;
         
@@ -118,11 +119,17 @@ export class Game extends Scene
         }).setDepth(100).setOrigin(0.5);
 
 
-
-        
         
 
-        this.jumpHeight = this.jumpHeight+clickCount;
+        // drawing stamina bar
+        this.rect1 = new Phaser.Geom.Rectangle(this.player.x-24, this.player.y-50, (this.stamina*50)/this.maxStamina, 10);
+        this.graphics.clear();
+        this.graphics.strokeRectShape(this.rect1);
+        this.graphics.fillRectShape(this.rect1);
+       
+        
+      
+        
     }
 
     forceRest() {
