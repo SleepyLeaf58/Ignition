@@ -7,6 +7,7 @@ export{clickCount};
 let clickCount2 = 0;
 export{clickCount2};
 
+
 export class UpgradeScreen extends Scene
 {
     constructor ()
@@ -37,6 +38,12 @@ export class UpgradeScreen extends Scene
         this.clickButton2 = new TextButton(this, 500, 300, 'Stamina', { fill: '#0f0'}, () => this.updateClickCountText2());
         this.add.existing(this.clickButton2);
         this.updateClickCountText2();
+
+        this.menuButton = new TextButton(this, 900, 100, 'MENU', {fill: '#0f0',  fontSize: 32}, () => this.goToMenu());
+       
+        this.add.image(935, 115, 'wood').setScale(0.3);
+        this.add.existing(this.menuButton);
+        
     
 
         EventBus.emit('current-scene-ready', this);
@@ -50,6 +57,10 @@ export class UpgradeScreen extends Scene
     updateClickCountText2() {
         this.clickCountText2.setText(`Button has been clicked ${clickCount2} times.`);
         clickCount2++;
+    }
+
+    goToMenu() {
+        this.scene.start('Menu');
     }
 
 

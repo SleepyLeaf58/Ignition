@@ -6,6 +6,8 @@ import{UpgradeScreen} from'./scenes/UpgradeScreen';
 import { Math } from "./scenes/Math"
 import Phaser from 'phaser';
 import { Preloader } from './scenes/Preloader';
+import { Menu } from './scenes/Menu';
+
 
 // Find out more information about the Game Config at:
 // https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -32,7 +34,8 @@ const config = {
         Game,
         GameOver,
         UpgradeScreen,
-        Math
+        Math,
+        Menu
     ]
     
 };

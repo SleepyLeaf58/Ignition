@@ -1,7 +1,8 @@
 import { EventBus } from '../EventBus';
-import { Scene } from 'phaser';
+import { Display, Scene } from 'phaser';
 import {clickCount} from './UpgradeScreen';
 import {clickCount2} from './UpgradeScreen';
+import {TextButton} from '../TextButton';
 // what is this dasdasdsaasd
 // pls move to inside the class
 // why
@@ -29,9 +30,9 @@ export class Game extends Scene
     create () {   
         // initializations
         
-        this.cameras.main.setBackgroundColor(0x00ff00);
         this.cursors = this.input.keyboard.createCursorKeys();
-        
+        this.cameras.main.setBounds(0, 0, 64*30, 64*20);
+        this.physics.world.setBounds(0, 0, 64*30, 64*20); // Make bounds responsive
         
 
         //platforms
@@ -39,23 +40,23 @@ export class Game extends Scene
         const tileset = this.map.addTilesetImage('Tileset');
         const backgroundLayer = this.map.createLayer('background', tileset, 0, 0);
         const groundLayer = this.map.createLayer('ground', tileset, 0, 0);
-        const goalLayer = this.map.createLayer('goal', tileset, 0, 0);
+        //const goalLayer = this.map.createLayer('goal', tileset, 0, 0);
 
         const camera = this.cameras.main;
         groundLayer.setCollisionByProperty({collide: true});
         
         
-        this.plat = 'ground';
-        this.platforms = this.physics.add.staticGroup();
-        this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
-        this.platforms.create(600, 400, this.plat);
-        this.platforms.create(50, 250,this.plat);
-        this.platforms.create(750, 220,this.plat);
+        // this.plat = 'ground';
+        // this.platforms = this.physics.add.staticGroup();
+        // this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
+        // this.platforms.create(600, 400, this.plat);
+        // this.platforms.create(50, 250,this.plat);
+        // this.platforms.create(750, 220,this.plat);
         
         //player
         // sprite sheet will wait 
         this.avatar = 'player';
-        this.jumpHeight = 310+clickCount;
+        this.jumpHeight = 310+2*clickCount;
         this.maxStamina = 100+10*clickCount2;
         this.stamina = this.maxStamina;
         this.staminaInc = 1+0.03*clickCount2;
@@ -69,10 +70,19 @@ export class Game extends Scene
         this.player.setCollideWorldBounds(true);
         this.player.body.setGravityY(300);
         this.physics.add.collider(this.player, groundLayer);
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa, alpha: 0.6 }, fillStyle: { color: 0x00aa00, alpha: 0.7 } });
 
-        
-        
-        
+
+        // make menu relative to player!!!
+        this.menuButton = new TextButton(this, 900, 100, 'MENU', {fill: '#0f0',  fontSize: 32}, () => this.goToMenu());
+       
+        this.add.image(935, 115, 'wood').setScale(0.3);
+        this.add.existing(this.menuButton);
+       
+
+        // Camera
+        // this.cameras.main.setBounds(0, 0, bg.displayWidth, bg.displayHeight);
+        this.cameras.main.startFollow(this.player);
 
         EventBus.emit('current-scene-ready', this);
     }
@@ -89,14 +99,14 @@ export class Game extends Scene
             this.player.setVelocityX(160);
             this.stamina -= this.staminaDec;
         } 
-        else if (this.player.body.touching.down) {
+        else if (this.player.body.blocked.down) {
             this.player.setVelocityX(0);
             this.stamina += this.staminaInc;
         }
 
         this.stamina=Math.min(this.stamina, this.maxStamina);
 
-        if (this.stamina <= 1) { // run out of stamina
+        if (this.stamina <= 0) { // run out of stamina
             this.rest=true;
         }
         if (this.stamina == this.maxStamina) {
@@ -106,18 +116,22 @@ export class Game extends Scene
         if (this.rest) this.forceRest();
         
         
-        if (this.stamina >= 50 && this.cursors.up.isDown && this.player.body.touching.down)
+        if (this.stamina >= 50 && this.cursors.up.isDown && this.player.body.blocked.down)
         {
             this.stamina-=50;
             this.player.setVelocityY(-this.jumpHeight);
         }
 
+
+        /*
         this.add.text(512, 460, this.stamina, {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setDepth(100).setOrigin(0.5);
-
+        
+       console.log(this.player.body.blocked.down);
+       */
 
         
 
@@ -134,11 +148,16 @@ export class Game extends Scene
 
     forceRest() {
         this.player.setVelocityX(0);
-        if (this.player.body.touching.down)this.stamina+=this.staminaInc;
+        if (this.player.body.blocked.down) {
+            this.stamina+=this.staminaInc;
+        }
     }
 
     changeScene ()
     {
         this.scene.start('GameOver');
+    }
+    goToMenu() {
+        this.scene.start('Menu');
     }
 }

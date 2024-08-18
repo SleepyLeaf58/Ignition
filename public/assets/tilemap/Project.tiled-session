@@ -3,25 +3,26 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tileset.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "Tileset.tmx": {
-            "scale": 1,
-            "selectedLayer": 2,
+            "scale": 0.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 515.5,
-                "y": 342.5
+                "x": 937,
+                "y": 678
             }
         },
         "Tileset.tmx#Tileset": {
-            "scaleInDock": 1.5
+            "scaleInDock": 0.5
         }
     },
     "last.exportedFilePath": "C:/Users/frank/OneDrive/Documents/Coding-Projects/Ignition/public/assets/tilemap",
@@ -31,7 +32,6 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "Tileset.tmx"
     ],
     "project": "Project.tiled-project",
     "property.type": "bool",
@@ -40,7 +40,7 @@
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
-        "height": 32,
-        "width": 32
+        "height": 64,
+        "width": 64
     }
 }
