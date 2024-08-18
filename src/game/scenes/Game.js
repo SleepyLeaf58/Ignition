@@ -122,16 +122,19 @@ export class Game extends Scene
             this.player.setFlipX(true);
             this.player.setVelocityX(-160);
             this.stamina-=this.staminaDec;
+            this.player.anims.play('run', true);
         }
         else if (!this.rest && this.cursors.right.isDown)
         {
             this.player.setFlipX(false);
             this.player.setVelocityX(160);
             this.stamina -= this.staminaDec;
+            this.player.anims.play('run', true);
         } 
         else if (this.player.body.blocked.down) {
             this.player.setVelocityX(0);
             this.stamina += this.staminaInc;
+            this.player.anims.play('idle', true);
         }
 
         this.stamina=Math.min(this.stamina, this.maxStamina);
