@@ -1,0 +1,46 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Tileset.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tileset.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 515.5,
+                "y": 342.5
+            }
+        },
+        "Tileset.tmx#Tileset": {
+            "scaleInDock": 1.5
+        }
+    },
+    "last.exportedFilePath": "C:/Users/frank/OneDrive/Documents/Coding-Projects/Ignition/public/assets/tilemap",
+    "last.imagePath": "C:/Users/frank/OneDrive/Documents/Coding-Projects/Ignition/public/assets/tilemap",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "Tileset.tmx"
+    ],
+    "project": "Project.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "Tileset.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
