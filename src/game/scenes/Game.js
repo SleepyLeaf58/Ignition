@@ -20,10 +20,10 @@ export class Game extends Scene
     }
 
     preload() {
-        /*
-        this.load.image('tiles', 'assets/world_tileset.png');
-        this.load.tilemapTiledJSON('map', 'assets/TileMap.json');
-        */
+        
+        // this.load.image('tiles', 'assets/world_tileset.png');
+        // this.load.tilemapTiledJSON('map', 'assets/TileMap.json');
+        
     }
 
     create () {   
@@ -35,22 +35,24 @@ export class Game extends Scene
         
 
         //platforms
-        this.map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('world_tileset', 'tiles')
-        const backgroundLayer = map.createLayer('background', tileset, 0, 0);
-        const groundLayer = map.createLayer('ground', tileset, 0, 0);
-        const goalLayer = map.createLayer('goal', tileset, 0, 0);
-
-        const camera = this.cameras.main;
-        groundLayer.setCollisionByProperty({collide: true});
-        this.physics.add.collider(this.player, groundLayer);
         
-        // this.plat = 'ground';
-        // this.platforms = this.physics.add.staticGroup();
-        // this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
-        // this.platforms.create(600, 400, this.plat);
-        // this.platforms.create(50, 250,this.plat);
-        // this.platforms.create(750, 220,this.plat);
+        // this.map = this.make.tilemap({key: 'map'});
+        // const tileset = map.addTilesetImage('world_tileset', 'tiles')
+        // //const backgroundLayer = map.createLayer('background', tileset, 0, 0);
+        // const groundLayer = map.createLayer('ground', tileset, 0, 0);
+        // //const goalLayer = map.createLayer('goal', tileset, 0, 0);
+
+        // const camera = this.cameras.main;
+        // groundLayer.setCollisionByProperty({collide: true});
+        // this.physics.add.collider(this.player, groundLayer);
+        
+        
+        this.plat = 'ground';
+        this.platforms = this.physics.add.staticGroup();
+        this.platforms.create(400, 568, this.plat).setScale(2).refreshBody();
+        this.platforms.create(600, 400, this.plat);
+        this.platforms.create(50, 250,this.plat);
+        this.platforms.create(750, 220,this.plat);
         
         //player
         // sprite sheet will wait 
@@ -69,6 +71,9 @@ export class Game extends Scene
         this.player.setCollideWorldBounds(true);
         this.player.body.setGravityY(300);
         this.physics.add.collider(this.player, this.platforms);
+
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x0000aa, alpha: 0.6 }, fillStyle: { color: 0x00aa00, alpha: 0.7 } });
+
 
         
         
@@ -119,11 +124,17 @@ export class Game extends Scene
         }).setDepth(100).setOrigin(0.5);
 
 
-
-        
-        
-
         this.jumpHeight = this.jumpHeight+clickCount;
+
+        // drawing stamina bar
+        this.rect1 = new Phaser.Geom.Rectangle(this.player.x-24, this.player.y-50, this.stamina/2, 10);
+        this.graphics.clear();
+        this.graphics.strokeRectShape(this.rect1);
+        this.graphics.fillRectShape(this.rect1);
+       
+        
+      
+        
     }
 
     forceRest() {
