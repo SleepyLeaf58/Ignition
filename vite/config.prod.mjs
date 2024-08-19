@@ -30,7 +30,8 @@ export default defineConfig({
                 manualChunks: {
                     phaser: ['phaser']
                 }
-            }
+            },
+            external: ['react'],
         },
         minify: 'terser',
         terserOptions: {
