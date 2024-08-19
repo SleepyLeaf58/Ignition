@@ -140,7 +140,9 @@ export class Game extends Scene
     }
     
     update () {
-
+        this.jumpHeight = 310+50*clickCount;
+        this.maxStamina = 350+75*clickCount2;
+        
         if (!this.rest && this.cursors.left.isDown)
         {   
             this.player.setFlipX(true);
@@ -196,7 +198,6 @@ export class Game extends Scene
         })
         this.coinText.setText(`Coins left: ${this.coins.length}`)
         if (this.coins.length == 0) this.goToWinScreen();
-        console.log(this.jumpHeight);
     }
 
     forceRest() {
