@@ -7,6 +7,7 @@ import { Math } from "./scenes/Math"
 import Phaser from 'phaser';
 import { Preloader } from './scenes/Preloader';
 import { Menu } from './scenes/Menu';
+import {WinScreen} from './scenes/WinScreen';
 
 
 // Find out more information about the Game Config at:
@@ -35,7 +36,8 @@ const config = {
         GameOver,
         UpgradeScreen,
         Math,
-        Menu
+        Menu,
+        WinScreen
     ]
     
 };

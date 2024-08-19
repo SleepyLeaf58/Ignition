@@ -24,7 +24,7 @@ export class Menu extends Scene
         EventBus.emit('current-scene-ready', this);
     }
     goToGame() {
-        this.scene.start('Game');
+        this.scene.switch('Game');
     }
 
     goToUpgrade() {

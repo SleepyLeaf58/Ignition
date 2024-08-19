@@ -29,6 +29,8 @@ export class Game extends Scene
         // Texture
         this.load.image('knight', 'assets/sprites/hero.png');
         this.load.atlas('a-knight', 'assets/sprites/knight.png', 'assets/sprites/knight.json');
+        this.load.image('coin', 'assets/sprites/coin.png');
+        this.load.atlas('a-coin', 'assets/sprites/coin.png', 'assets/sprites/coin.json');
     }
 
     create () {   
@@ -56,6 +58,18 @@ export class Game extends Scene
             }),
             repeat:-1,
         })
+        this.anims.create({
+            key: 'spin',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('a-coin', {
+                prefix: "coin",
+                suffix: ".png",
+                start: 1,
+                end: 12,
+            }),
+            repeat:-1,
+        })
+
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.setBounds(0, 0, 64*30, 64*20);
@@ -82,8 +96,8 @@ export class Game extends Scene
         
         //player
 
-        this.jumpHeight = 310+30*clickCount;
-        this.maxStamina = 100+30*clickCount2;
+        this.jumpHeight = 310+50*clickCount;
+        this.maxStamina = 350+75*clickCount2;
         this.stamina = this.maxStamina;
         this.staminaInc = 1+0.1*clickCount2;
         this.staminaDec = 1;
@@ -91,7 +105,7 @@ export class Game extends Scene
         
       
         this.player = this.physics.add.sprite(200, 200, 'a-knight');
-        this.player.setScale(0.5).refreshBody();
+        this.player.setScale(0.75).refreshBody();
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
         this.player.body.setGravityY(300);
@@ -104,15 +118,23 @@ export class Game extends Scene
         this.wood=this.add.image(940, 20, 'wood').setScale(0.3);
         this.add.existing(this.menuButton);
         this.wood.setScrollFactor(0);
-        this.menuButton.setScrollFactor(0);
-        
-        
-       
+        this.menuButton.setScrollFactor(0);       
+
+        // Coin stuff
+        this.coins = [];    
+        for (let i = 0; i < 30; i++) {
+            this.coins.push(this.physics.add.sprite(64 * this.randInt(1, 29), 200, 'a-coin'));
+            this.coins[i].setBounce(0.2);
+            this.coins[i].setGravityY(300);
+            this.physics.add.collider(this.coins[i], groundLayer);
+            this.coins[i].anims.play('spin', true);     
+        }
+
+        this.coinText = this.add.text(10, 10, '', {fontSize:30}).setScrollFactor(0);
 
         // Camera
         // this.cameras.main.setBounds(0, 0, bg.displayWidth, bg.displayHeight);
         this.cameras.main.startFollow(this.player);
-
 
         EventBus.emit('current-scene-ready', this);
     }
@@ -157,26 +179,24 @@ export class Game extends Scene
             this.player.setVelocityY(-this.jumpHeight);
         }
 
-
-        /*
-        this.add.text(512, 460, this.stamina, {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setDepth(100).setOrigin(0.5);
-        
-       console.log(this.player.body.blocked.down);
-       */
-
-        
-
         // drawing stamina bar
         this.rect1 = new Phaser.Geom.Rectangle(this.player.x-24, this.player.y-50, (this.stamina*50)/this.maxStamina, 10);
         this.graphics.clear();
         this.graphics.strokeRectShape(this.rect1);
         this.graphics.fillRectShape(this.rect1);
-
-    
+        this.coins.forEach(coin => {
+            // ...use `element`...
+            if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), coin.getBounds())) {
+                let index = this.coins.indexOf(coin);
+                if (index > -1) { // only splice array when item is found
+                    this.coins.splice(index, 1); // 2nd parameter means remove one item only
+                }
+                coin.destroy(true);
+            }
+        })
+        this.coinText.setText(`Coins left: ${this.coins.length}`)
+        if (this.coins.length == 0) this.goToWinScreen();
+        console.log(this.jumpHeight);
     }
 
     forceRest() {
@@ -191,6 +211,15 @@ export class Game extends Scene
         this.scene.start('GameOver');
     }
     goToMenu() {
-        this.scene.start('Menu');
+        this.scene.switch('Menu');
+    }
+
+    goToWinScreen() {
+        this.scene.start('WinScreen');
+
+    }
+
+    randInt(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
     }
 }
