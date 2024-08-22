@@ -31,7 +31,10 @@ export default defineConfig({
                     phaser: ['phaser']
                 }
             },
-            external: ['prop-types'],
+            external: [
+                'react',
+                'prop-types',
+            ],
         },
         minify: 'terser',
         terserOptions: {
