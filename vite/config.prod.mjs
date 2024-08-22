@@ -32,7 +32,6 @@ export default defineConfig({
                 }
             },
             external: [
-                'react',
                 'prop-types',
             ],
         },
