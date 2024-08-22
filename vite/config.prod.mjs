@@ -32,7 +32,6 @@ export default defineConfig({
                 }
             },
             external: [
-                'prop-types',
             ],
         },
         minify: 'terser',
